@@ -1,0 +1,254 @@
+CARTERAS:
+  CODI_CARTERA:
+    key:
+      type: PK
+    type: INTEGER
+    desc: 'Identification Number of the Portfolio'
+    pii: NS
+    nullable: NOT NULL
+    source: Carteras.Cartera.Id
+
+  CODI_CAMPAÑA:
+    key:
+      type: PK, FK
+      source: CAMPAÑAS
+    type: INTEGER
+    desc: 'Identification Number of the Campaign'
+    pii: NS
+    nullable: NOT NULL
+    source: Campañas.Id
+
+  CODI_EJECUTIVA:
+    key:
+      type: PK, FK
+      source: EJECUTIVAS
+    type: INTEGER
+    desc: 'Identification Number of the Executive'
+    pii: NS
+    nullable: NOT NULL
+    source: IdEjecutivo
+
+  ESTADO:
+    type: VARCHAR(20)
+    desc: 'Current Status of the Portfolio'
+    pii: NS
+    nullable: NULL
+    source: IdEjecutivo
+
+
+EJECUTIVAS:
+  CODI_EJECUTIVA:
+    key:
+      type: PK
+    type: INTEGER
+    desc: 'Identification Number of the Executive'
+    pii: NS
+    nullable: NOT NULL
+    source: IdEjecutivo
+
+  NOMBRE:
+    type: VARCHAR(20)
+    desc: 'Name of the Executive'
+    pii: NS
+    nullable: NULL
+    source: Nombre
+
+  RUT:
+    type: VARCHAR(20)
+    desc: 'National Identifier of the Executive'
+    pii: SE
+    nullable: NULL
+    source: Rut
+
+  DIRECCION:
+    type: VARCHAR(20)
+    desc: 'Address of the Executive'
+    pii: HS
+    nullable: NULL
+    source: Direccion
+
+  TELEFONO:
+    type: INTEGER
+    desc: 'Telephone Number of the Executive'
+    pii: SE
+    nullable: NULL
+    source: Telefono
+
+  ESTADO:
+    type: VARCHAR(20)
+    desc: 'Current State of the Executive'
+    pii: NS
+    nullable: NULL
+    source: Estado
+
+
+CLIENTES:
+  RUT:
+    key:
+      type: PK
+    type: VARCHAR(20)
+    desc: 'National Identifier Number of the Client'
+    pii: SE
+    nullable: NOT NULL
+    source: Rut
+
+  NOMBRE:
+    type: VARCHAR(20)
+    desc: 'Name of the Client'
+    pii: NS
+    nullable: NULL
+    source: Nombre
+
+  DIRECCION:
+    type: VARCHAR(20)
+    desc: 'Address of the Client'
+    pii: HS
+    nullable: NULL
+    source: Direccion
+
+  CIUDAD:
+    type: VARCHAR(20)
+    desc: 'City of Residence of the Client'
+    pii: NS
+    nullable: NULL
+    source:
+      static: CL-STG
+
+  TELEFONO:
+    type: VARCHAR(20)
+    desc: 'Telephone Number of the Client'
+    pii: SE
+    nullable: NULL
+    source: Telefono
+
+
+PROMOCIONES:
+  CODI_PROMOCION:
+    key:
+      type: PK
+    type: INTEGER
+    desc: 'Promotion Identifier Number'
+    pii: NS
+    nullable: NOT NULL
+    source: Promociones.Promocion.Id
+
+  NOMBRE:
+    type: VARCHAR(20)
+    desc: 'Name of the Promotion'
+    pii: NS
+    nullable: NOT NULL
+    source: Promociones.Promocion.Nombre
+
+  VALOR:
+    type: VARCHAR(20)
+    desc: 'Monetary amount of the Promotion'
+    pii: NS
+    nullable: NOT NULL
+    source: Promociones.Promocion.Valor
+
+
+DETALLE_CARTERA:
+  CODI_DETALLE:
+    key:
+      type: PK
+    type: INTEGER
+    desc: 'Identification Number of the Portfolio'
+    pii: NS
+    nullable: NOT NULL
+    source: Carteras.Cartera.Id
+
+  RUT:
+    key:
+      type: PK, FK
+      source: CLIENTES
+    type: VARCHAR(20)
+    desc: 'Identification Number of the Client'
+    pii: SE
+    nullable: NOT NULL
+    source: Rut
+
+  CODI_CARTERA:
+    key:
+      type: PK, FK
+      source: CARTERAS
+    type: INTEGER
+    desc: 'Identification Number of the Portfolio'
+    pii: NS
+    nullable: NOT NULL
+    source: Carteras.Cartera.Id
+
+  CODI_CAMPAÑA:
+    key:
+      type: PK, FK
+      source: CAMPAÑAS
+    type: INTEGER
+    desc: 'Identification Number of the Campaign'
+    pii: NS
+    nullable: NOT NULL
+    source: Campaña.Id
+
+  CODI_EJECUTIVA:
+    key:
+      type: PK, FK
+      source: EJECUTIVAS
+    type: INTEGER
+    desc: 'Identification Number of the Executive'
+    pii: NS
+    nullable: NOT NULL
+    source: IdEjecutivo
+
+  CODI_PROMOCION:
+    key:
+      type: PK, FK
+      source: PROMOCIONES
+    type: INTEGER
+    desc: 'Promotion Identifier Number'
+    pii: NS
+    nullable: NOT NULL
+    source: Promociones.Promocion.Id
+
+  FLAG_COMPRA:
+    type: SMALLINT
+    desc: 'Purchase Flag'
+    pii: NS
+    nullable: NULL
+    source: Carteras.Cartera.Compra.Flag
+
+  FECHA_CONTACTO:
+    type: DATE
+    desc: 'Date on which the Executive contacted the Client'
+    pii: NS
+    nullable: NULL
+    source: Carteras.Cartera.Compra.contacto
+
+
+CAMPAÑAS:
+  CODI_CAMPAÑA:
+    key:
+      type: PK
+    type: INTEGER
+    desc: 'Identification Number of the Campaign'
+    pii: NS
+    nullable: NOT NULL
+    source: Campañas.Campaña.Id
+
+  NOMBRE_CAMPAÑA:
+    type: VARCHAR(20)
+    desc: 'Name of the Campaign'
+    pii: NS
+    nullable: NULL
+    source: Campañas.Campaña.Nombre
+
+  FECHA_INICIO:
+    type: DATE
+    desc: 'Starting Date of the Campaign'
+    pii: NS
+    nullable: NULL
+    source: Campañas.Campaña.inicio
+
+  FECHA_TERMINO:
+    type: DATE
+    desc: 'Ending Date of the Campaign'
+    pii: NS
+    nullable: NULL
+    source: Campañas.Campaña.fin

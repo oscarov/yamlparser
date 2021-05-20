@@ -1,0 +1,405 @@
+##Data Transformations
+
+K2_CL_POS_TRANS: #K2_CL_POS_TRANS
+  TRANS_ID:
+    type: VARCHAR(20)
+    source: ID
+    desc: 'concatenation from Store + Date + PosNumber + SequenceNumber'
+  TRANS_DT:
+    type: DATE
+    source: BusinessDayDate
+    desc: 'String in format %Y-%m-%d'
+  TRANS_TS:
+    type: TIMESTAMP
+    source: EndDateTime
+    desc: 'String in format %Y-%m-%dT%H:%M:%S'
+  STORE_NBR:
+    type: INTEGER
+    source: RetailStoreID
+    desc: 'String of Numbers with 4 digits'
+  TRANS_NBR:
+    type: INTEGER
+    source: SequenceNumber
+    desc: 'Integer'
+  POS_NBR:
+    type: INTEGER
+    source: WorkstationID
+    desc: 'String of Numbers with 3 digits'
+  CASHIER_NBR:
+    type: INTEGER
+    source: OperatorID
+    desc: 'String of Numbers with 2 digits'
+  CRNCY_CD:
+    type: CHAR(3)
+    source: CLP
+    desc: 'STATIC value'
+  TOT_AMT:
+    type: DECIMAL(15,0)
+    source: GrossTotal
+    desc:
+  NET_TOT_AMT:
+    type: DECIMAL(15,0)
+    source: NetTotalSale
+    desc:
+  FOLIO_NBR:
+    type: INTEGER
+    source: TributaryDocument.DocumentNumber
+    desc: 'String of Number with 9 or + digits'
+  DOC_TYPE_CD:
+    type: SMALLINT
+    source: TributaryDocument.DocumentType
+    desc: 'String of Numbers with 2 digits'
+  DOC_TYPE_DESC:
+    type: VARCHAR(20)
+    source: NULL
+    desc: 'STATIC value, depends on DOC_TYPE_CD must be add in future'
+  SRC_TXT:
+    type: VARCHAR(50)
+    source: ShippingGroupType
+    desc:
+  SHPG_GRP_NBR:
+    type: VARCHAR(50)
+    source: ShippingGroup
+    desc:
+  TOT_DISC_AMT:
+    type: DECIMAL(15,0)
+    source: TotalDiscount
+    desc:
+  TRANS_BNK_AUTH_CD:
+    type: INTEGER
+    source: Tender.AuthorizationCode
+    desc: 'String of Numbers with 6 digits'
+  LOYALTY_PGM_CLNT_ID:
+    type: INTEGER
+    source: LoyaltyProgram.LoyaltyClientID
+    desc: 'String of numbers equals to Chilean RUT without the validation digit'
+  LOYALTY_PGM_ACCUM_AMT:
+    type: INTEGER
+    source: LoyaltyProgram.TrxAccumulated
+    desc:
+  TRIBUTARY_CLNT_ID:
+    type: VARCHAR(20)
+    source: ClientID
+    desc:
+  CR_NOTE_RSN_CD:
+    type:  CHAR(2)
+    source: CreditNoteReason
+    desc:
+  CR_NOTE_SRC_TRANS_ID:
+    type: VARCHAR(20)
+    source: OriginID
+    desc:
+  ECOMM_CLNT_ID:
+    type: VARCHAR(20)
+    source: NULL
+    desc: 'Static value waiting for VPoS'
+  OP_CMPNY_CD:
+    type: VARCHAR(8)
+    source: $op_cmpny_cd
+    desc: 'STATIC value'
+  GEO_REGION_CD:
+    type: CHAR(2)
+    source: $geo_region_cd
+    desc: 'STATIC value'
+
+K2_CL_POS_TRANS_CNTRL_MAYORISTA: #K2_CL_POS_TRANS_CNTRL_MAYORISTA
+  TRANS_ID:
+    type: VARCHAR(20)
+    source: ID
+    desc: 'concatenation from Store + Date + PosNumber + SequenceNumber'
+  TRANS_DT:
+    type: DATE
+    source: BusinessDayDate
+    desc: 'String in format %Y-%m-%d'
+  TRANS_TS:
+    type: TIMESTAMP
+    source: EndDateTime
+    desc: 'String in format %Y-%m-%dT%H:%M:%S'
+  STORE_NBR:
+    type: INTEGER
+    source: RetailStoreID
+    desc: 'String of Numbers with 4 digits'
+  TRANS_NBR:
+    type: INTEGER
+    source: SequenceNumber
+    desc: 'Integer'
+  POS_NBR:
+    type: INTEGER
+    source: WorkstationID
+    desc: 'String of Numbers with 3 digits'
+  CASHIER_NBR:
+    type: INTEGER
+    source: OperatorID
+    desc: 'String of Numbers with 2 digits'
+  MBRSHP_BUS_ID:
+    type: INTEGER
+    source: Passport.BusinessID
+    desc: 'String of numbers equals to Chilean RUT without the validation digit'
+  MBRSHP_BUS_STORE_NBR:
+    type: SMALLINT
+    source: Passport.BusinessStoreID
+    desc:
+  MBRSHP_TYPE_CD:
+    type: CHAR(3)
+    source: Passport.PassportType
+    desc:
+  MBRSHP_TYPE_DESC:
+    type: VARCHAR(20)
+    source: NULL
+    desc: 'static value'
+  MBRSHP_CORRELATIVE_NBR:
+    type: SMALLINT
+    source: Passport.Correlative
+    desc:
+  MBRSHP_ID:
+    type: VARCHAR(20)
+    source: NULL
+    desc: 'Static value'
+  OP_CMPNY_CD:
+    type: VARCHAR(8)
+    source: $op_cmpny_cd
+    desc: 'STATIC value'
+  GEO_REGION_CD:
+    type: CHAR(2)
+    source: $geo_region_cd
+    desc: 'STATIC value'
+
+K2_CL_POS_TRANS_TNDR: #K2_CL_POS_TRANS_TNDR
+  TNDR_TYPE:
+    type: SMALLINT
+    source: Tender.Type
+    desc:
+  TRANS_ID:
+    type: VARCHAR(20)
+    source: ID
+    desc: 'concatenation from Store + Date + PosNumber + SequenceNumber'
+  TNDR_AMT:
+    type: DECIMAL(15,0)
+    source: Tender.Amount
+    desc:
+  OP_CMPNY_CD:
+    type: VARCHAR(8)
+    source: $op_cmpny_cd
+    desc: 'STATIC value'
+  GEO_REGION_CD:
+    type: CHAR(2)
+    source: $geo_region_cd
+    desc: 'STATIC value'
+
+K2_CL_POS_TRANS_PROMO: #K2_CL_POS_TRANS_PROMO
+  PROMO_NBR:
+    type: BIGINT
+    source: Discounts.DiscountCode
+    desc:
+  TRANS_ID:
+    type: VARCHAR(20)
+    source: ID
+    desc: 'concatenation from Store + Date + PosNumber + SequenceNumber'
+  PROMO_SEQ_NBR:
+    type: SMALLINT
+    source: Discount.DiscountSequenceNumber
+    desc:
+  BARCODE_NBR:
+    type: BIGINT
+    source: Discounts.POSItemID
+    desc:
+  PROMO_DESC:
+    type: VARCHAR(20)
+    source: Discounts.Reason
+    desc:
+  COST_CNTR_NBR:
+    type: SMALLINT
+    source: NULL
+    desc: 'Static value until we take that code from another datamodel source'
+  CRNCY_CD:
+    type: CHAR(3)
+    source: CLP
+    desc: 'STATIC value'
+  DISC_AMT:
+    type: DECIMAL(15,0)
+    source: Discounts.Amount
+    desc:
+  OP_CMPNY_CD:
+    type: VARCHAR(8)
+    source: $op_cmpny_cd
+    desc: 'STATIC value'
+  GEO_REGION_CD:
+    type: CHAR(2)
+    source: $geo_region_cd
+    desc: 'STATIC value'
+
+K2_CL_POS_TRANS_LOYALTY_PGM: #K2_CL_POS_TRANS_LOYALTY_PGM
+  TRANS_ID:
+    type: VARCHAR(20)
+    source: ID
+    desc: 'concatenation from Store + Date + PosNumber + SequenceNumber'
+  LOYALTY_PGM_CLNT_ID:
+    type: INTEGER
+    source: LoyaltyProgram.LoyaltyClientID
+    desc: 'String of numbers equals to Chilean RUT without the validation digit'
+  CHK_ID:
+    type: VARCHAR(20)
+    source: LoyaltyProgram.CheckNumber
+    desc:
+  CHK_NBR:
+    type: SMALLINT
+    source: LoyaltyProgram.Checks
+    desc: 'Its a smallint with 1 or 2 digits'
+  CHK_AMT:
+    type: DECIMAL(15,0)
+    source: LoyaltyProgram.CheckAmount
+    desc:
+  CHK_STATUS_CD:
+    type: SMALLINT
+    source: LoyaltyProgram.CheckState
+    desc:
+  OP_CMPNY_CD:
+    type: VARCHAR(8)
+    source: $op_cmpny_cd
+    desc: 'STATIC value'
+  GEO_REGION_CD:
+    type: CHAR(2)
+    source: $geo_region_cd
+    desc: 'STATIC value'
+
+K2_CL_POS_TRANS_ITEM: #K2_CL_POS_TRANS_ITEM
+  TRANS_SEQ_NBR:
+    type: SMALLINT
+    source: Items.ItemSequenceNumber
+    desc: '3 digits at max'
+  TRANS_ID:
+    type: VARCHAR(20)
+    source: ID
+    desc: 'concatenation from Store + Date + PosNumber + SequenceNumber'
+  BARCODE_NBR:
+    type: BIGINT
+    source: Items.POSItemID
+    desc: 'String of Integers'
+  ITEM_NBR:
+    type: INTEGER
+    source: Items.ItemID
+    desc: 'String of Integers'
+  TRANS_TYPE_DESC:
+    type: VARCHAR(10)
+    source: Items.Type
+    desc:
+  VENDOR_NBR:
+    type: INTEGER
+    source: NULL
+    desc: 'STATIC value, will be add in future'
+  DEPT_NBR:
+    type: INTEGER
+    source: Items.Department
+    desc:
+  UNIT_QTY:
+    type: DECIMAL(9,2)
+    source: Items.Quantity
+    desc:
+  WT_QTY:
+    type: DECIMAL(9,2)
+    source: Items.Weight
+    desc:
+  CRNCY_CD:
+    type: CHAR(3)
+    source: CLP
+    desc: 'STATIC value'
+  UNIT_PRICE_AMT:
+    type: DECIMAL(15,0)
+    source: Items.UnitCostPrice
+    desc:
+  NET_TOT_PRICE_AMT:
+    type: DECIMAL(15,0)
+    source: Items.NetAmount
+    desc:
+  TOT_PRICE_AMT:
+    type: DECIMAL(15,0)
+    source: Items.TotalAmount
+    desc:
+  ITEM_CR_NOTE_AMT:
+    type: DECIMAL(15,0)
+    source: Items.CreditNoteAmount
+    desc:
+  OP_CMPNY_CD:
+    type: VARCHAR(8)
+    source: $op_cmpny_cd
+    desc: 'STATIC value'
+  GEO_REGION_CD:
+    type: CHAR(2)
+    source: $geo_region_cd
+    desc: 'STATIC value'
+
+K2_CL_POS_TRANS_ITEM_PROMO: #K2_CL_POS_TRANS_ITEM_PROMO
+  ITEM_PROMO_NBR:
+    type: BIGINT
+    source: '1'
+    desc: 'STATIC value'
+  TRANS_ID:
+    type: VARCHAR(20)
+    source: ID
+    desc: 'concatenation from Store + Date + PosNumber + SequenceNumber'
+  TRANS_SEQ_NBR:
+    type: SMALLINT
+    source: Items.ItemSequenceNumber
+    desc: '3 digits at max'
+  BARCODE_NBR:
+    type: BIGINT
+    source: Items.POSItemID
+    desc: 'String of Integers'
+  COST_CNTR_NBR:
+    type: SMALLINT
+    source: NULL
+    desc:
+  CRNCY_CD:
+    type: CHAR(3)
+    source: CLP
+    desc: 'Static value'
+  DISC_AMT:
+    type: DECIMAL(15,0)
+    source: Items.PriceAdjustment
+    desc:
+  OP_CMPNY_CD:
+    type: VARCHAR(8)
+    source: $op_cmpny_cd
+    desc: 'STATIC value'
+  GEO_REGION_CD:
+    type: CHAR(2)
+    source: $geo_region_cd
+    desc: 'STATIC value'
+
+K2_CL_POS_TRANS_ITEM_TAX: #K2_CL_POS_TRANS_ITEM_TAX
+  TAX_CD:
+    type: VARCHAR(4)
+    source: Items.Taxes.Code
+    desc:
+  TRANS_SEQ_NBR:
+    type: SMALLINT
+    source: Items.ItemSequenceNumber
+    desc:
+  TRANS_ID:
+    type: VARCHAR(20)
+    source: ID
+    desc: 'concatenation from Store + Date + PosNumber + SequenceNumber'
+  BARCODE_NBR:
+    type: BIGINT
+    source: Items.POSItemID
+    desc:
+  CRNCY_CD:
+    type: CHAR(3)
+    source: CLP
+    desc: 'STATIC value'
+  TAX_AMT:
+    type: DECIMAL(15,0)
+    source: Items.Taxes.Amount
+    desc:
+  PYMT_AMT:
+    type: DECIMAL(15,0)
+    source: Items.TotalAmount
+    desc:
+  OP_CMPNY_CD:
+    type: VARCHAR(8)
+    source: $op_cmpny_cd
+    desc: 'STATIC value'
+  GEO_REGION_CD:
+    type: CHAR(2)
+    source: $geo_region_cd
+    desc: 'STATIC value'

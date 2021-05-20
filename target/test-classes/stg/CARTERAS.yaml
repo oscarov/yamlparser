@@ -1,0 +1,37 @@
+Description: "Hive query to create stage and target table for $target_table $geo_region_cd inc load"
+HiveQuery : '
+
+SET hive.merge.smallfiles.avgsize=128000000;
+SET hive.merge.size.per.task=128000000;
+SET tez.grouping.max-size=128000000;
+SET hive.tez.container.size=4096;
+SET hive.tez.java.opts=-Xmx3400m;
+SET hive.execution.engine=tez;
+SET tez.queue.name=$queue;
+
+ADD JAR $libpath/$libfile;
+
+CREATE DATABASE IF NOT EXISTS stg_$target_schema;
+
+DROP TABLE IF EXISTS stg_$target_schema.$target_table;
+
+CREATE TABLE IF NOT EXISTS stg_$target_schema.$target_table
+(
+  ESTADO VARCHAR(20),
+  CODI_CAMPAÑA INTEGER,
+  CODI_EJECUTIVA INTEGER,
+  CODI_CARTERA INTEGER,)
+STORED AS ORC
+LOCATION ''/user/$USER/$target_schema/staging/$target_table''
+TBLPROPERTIES(''orc.compress''=''SNAPPY'',''transactional''=''false'');
+INSERT INTO stg_$target_schema.$target_table
+SELECT 
+  IdEjecutivo as ESTADO,
+  Campañas.Id as CODI_CAMPAÑA,
+  IdEjecutivo as CODI_EJECUTIVA,
+  Carteras.Cartera.Id as CODI_CARTERA,
+  ''$geo_region_cd'' as GEO_REGION_CD,
+  ''$op_cmpny_cd'' as OP_CMPNY_CD
+from raw_$target_schema.$source_table ;
+dfs -chgrp -R $group /user/$USER/$target_schema/staging/$target_table;
+dfs -chmod -R $permission /user/$USER/$target_schema/staging/$target_table;'
